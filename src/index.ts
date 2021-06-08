@@ -5,7 +5,7 @@ export const proxy = (project: string) =>
     // If we're already in a dev environment, there's nothing to do here.
     if (process.env.NODE_ENV === 'development') return resolve();
     // Never run on live/production.
-    if (location.host === 'www.abc.net.au') return resolve();
+    if (document.location.host === 'www.abc.net.au') return resolve();
 
     let proxied = false;
     const src = localStorage.getItem('proxy_' + project);
