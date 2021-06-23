@@ -7,7 +7,13 @@ export const proxy = (project: string) =>
     // Never run on live/production.
     if (document.location.host === 'www.abc.net.au') return resolve();
 
-    const src = localStorage.getItem('proxy_' + project);
+    let src: string | null;
+
+    try {
+      src = localStorage.getItem('proxy_' + project);
+    } catch (e) {
+      src = null;
+    }
 
     if (src) {
       const scr = document.createElement('script');
