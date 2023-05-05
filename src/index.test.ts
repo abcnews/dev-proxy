@@ -1,4 +1,4 @@
-import { proxy, RESOLUTION_REASONS } from '../src';
+import { proxy, RESOLUTION_REASONS } from './index';
 
 const PROJECT = 'abc';
 
