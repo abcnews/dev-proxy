@@ -59,4 +59,12 @@ describe('proxy', () => {
       );
     });
   });
+
+  describe('manager', () => {
+    it('installs the manager keydown event listener', () => {
+      expect.assertions(1);
+      proxy(PROJECT);
+      expect(window.__DEV_PROXY__).toBe(true);
+    });
+  });
 });
