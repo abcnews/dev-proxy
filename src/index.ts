@@ -20,6 +20,10 @@ export const proxy = (project: string) =>
       !document.location.pathname.match(/news-projects/)
     )
       return resolve(RESOLUTION_REASONS.IN_PRODUCTION);
+    // Load in a cheaky management keyboard shortcut
+    import('./main').then(({ manager }) => {
+      manager();
+    });
 
     let src: string | null;
 
