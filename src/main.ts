@@ -1,4 +1,4 @@
-import { RESOLUTION_REASONS, domainMatcher } from '.';
+import { RESOLUTION_REASONS } from '.';
 
 declare global {
   interface Window {
@@ -37,7 +37,7 @@ export const init = (project: string): Promise<RESOLUTION_REASONS> => {
     }
 
     // Don't allow proxying of scripts that aren't loaded from the ABC domain.
-    if (url.hostname.match(domainMatcher) === null) {
+    if (url.hostname.match(/abc\.net\.au$/) === null) {
       return resolve(RESOLUTION_REASONS.NON_ABC_SCRIPT);
     }
 
