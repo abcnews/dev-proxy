@@ -6,7 +6,10 @@ declare global {
   }
 }
 
-export const init = (project: string): Promise<RESOLUTION_REASONS> => {
+export const init = (
+  project: string,
+  options: { type?: string } = {}
+): Promise<RESOLUTION_REASONS> => {
   return new Promise((resolve, reject) => {
     // If we're already in a dev environment, there's nothing to do here.
     if (process.env.NODE_ENV === 'development') {
@@ -43,6 +46,9 @@ export const init = (project: string): Promise<RESOLUTION_REASONS> => {
 
     const scr = document.createElement('script');
     scr.src = src;
+    if (options.type) {
+      scr.type = options.type;
+    }
     document.head.appendChild(scr);
     const msg = '[dev-proxy] Loaded script: ' + src + ` (${project})`;
     console.info(msg);
