@@ -11,7 +11,7 @@ export const domainMatcher = /^(www|newsapp)\.abc\.net\.au$/;
 
 // Checks if a proxy is requested for this project and loads it if required.
 // The returned promise will only resolve if no proxy is loaded.
-export const proxy = (project: string) =>
+export const proxy = (project: string, options: { type?: string } = {}) =>
   new Promise<number>((resolve, reject) => {
     // Never run on live/production.
     if (
@@ -24,6 +24,6 @@ export const proxy = (project: string) =>
     // Load in a cheaky management keyboard shortcut
     import('./main').then(({ manager, init }) => {
       manager();
-      init(project).then(resolve).catch(reject);
+      init(project, options).then(resolve).catch(reject);
     });
   });
