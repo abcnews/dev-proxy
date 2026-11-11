@@ -12,6 +12,10 @@ export const init = (
 ): Promise<RESOLUTION_REASONS> => {
   return new Promise((resolve, reject) => {
     // If we're already in a dev environment, there's nothing to do here.
+    // This essentially turns the init function into a noop (a Promise that resolves immediately) when it's used as a
+    // dependency inn a development environment. Vite will pre-bundle then tree shake and webpack does something
+    // similar. Without this conditional, an infinite loop would happen where scripts are recursively replaced by the
+    // dev proxy.
     if (process.env.NODE_ENV === 'development') {
       return resolve(RESOLUTION_REASONS.DEV_ENV);
     }
@@ -72,6 +76,7 @@ const listener = (event: KeyboardEvent) => {
           return m ? m[1] : false;
         })
         .filter((d) => !!d)
+        .filter((d, i, arr) => i === arr.indexOf(d))
         .join(',')
     );
     if (!project) return;

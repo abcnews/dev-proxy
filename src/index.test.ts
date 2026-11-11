@@ -1,10 +1,11 @@
+import { expect, afterEach, describe, it, vi } from 'vitest';
 import { proxy, RESOLUTION_REASONS } from './index';
 
 const PROJECT = 'abc';
 
-beforeEach(() => {
-  process.env.NODE_ENV = 'test';
+afterEach(() => {
   localStorage.clear();
+  vi.unstubAllEnvs();
 });
 
 describe('proxy', () => {
@@ -15,7 +16,7 @@ describe('proxy', () => {
   describe('resolves', () => {
     it('in dev environment', () => {
       expect.assertions(1);
-      process.env.NODE_ENV = 'development';
+      vi.stubEnv('NODE_ENV', 'development');
       return expect(proxy(PROJECT)).resolves.toEqual(
         RESOLUTION_REASONS.DEV_ENV
       );

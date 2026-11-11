@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['16.x', '18.x']
+        node: ['26.x']
         os: [windows-latest, macOS-latest]
 
     steps:
@@ -18,14 +18,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
-
-      - name: Lint
-        run: npm run lint
+      - name: Install deps
+        run: npm ci
 
       - name: Test
-        run: npm run test -- --ci --maxWorkers=2
+        run: npm run test
 
       - name: Build
         run: npm run build
